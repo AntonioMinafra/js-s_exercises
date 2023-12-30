@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            color: brown;
+            border-radius: 5px;
+            padding-left:  20px;
+            padding-right: 20px;
+            background-color: rgba(0, 0, 0, 0.463);
+            cursor: pointer;
+        }
+        
+        body {
+            background-color: rgb(103, 98, 98);
+        }
+    </style>
+</head>
+<body>
+    <button id="product_button">Go</button>
+    <div id="product_container"></div>
+
+    <script>
+        let fetchClass;
+        let url ="./classe.json";
+        let button = document.getElementById("product_button");
+
+        button.addEventListener("click" , function() {
+            fetch(url)
+                .then(response => response.json())
+                .then(json => {
+                fetchClass = json.products;
+                productContainer = document.getElementById("product_container");
+                fetchClass.forEach(products => {
+                    let paragraph = document.createElement("p");
+                    paragraph.textContent = ` ${products.nome} / ${products.prezzo} / ${products.descrizione}`;
+                    productContainer.appendChild(paragraph);
+                    if (products.img) {
+                        let image = document.createElement("img");
+                        image.setAttribute("src", products.img);
+                        productContainer.appendChild(image);
+                    }
+                });
+                
+
+
+            });
+        });
+
+    </script>
+    
+   
+</body>
+</html>
